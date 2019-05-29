@@ -1,0 +1,20 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Tyler W Hale
+  description: Cuda driver installation
+  company: ""
+  license: ""
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+  galaxy_tags:
+    - cuda
+    - nvidia

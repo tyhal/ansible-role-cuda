@@ -1,0 +1,19 @@
+- name: check if nvidia drivers are working
+  register: gpu_working
+  shell: nvidia-smi && ls /usr/local | grep $(echo {{ cuda_version }} | tr '-' '.')
+  ignore_errors: true
+
+- include_tasks: "cuda/{{ ansible_facts['distribution'] }}.yml"
+  when: gpu_working is failed
+
+- name: blacklist the nouveau driver module
+  kernel_blacklist:
+    name: nouveau
+    state: present
+
+- reboot:
+  when: gpu_working is failed
+
+- name: check if nvidia drivers are working
+  command: nvidia-smi
+  when: gpu_working is failed

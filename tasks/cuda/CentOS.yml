@@ -1,0 +1,23 @@
+- copy:
+    dest: /etc/yum.repos.d/cuda.repo
+    content: |
+      [cuda]
+      name=cuda
+      baseurl=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64
+      enabled=1
+      gpgcheck=1
+      gpgkey=https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/7fa2af80.pub
+
+- yum:
+    name:
+      - epel-release
+      - dkms
+      - kernel-devel
+    update_cache: yes
+
+- name: install cuda-drivers
+  yum:
+    name: cuda-{{cuda_version}}
+    state: present
+
+- shell: yum update -y
