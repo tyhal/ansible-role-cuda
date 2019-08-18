@@ -316,6 +316,4 @@ crash.log
 # example.tfvars
 
 # End of https://www.gitignore.io/api/terraform
-config/nrack.ini
-config/machines/*-nrack.json
 *.retry
