@@ -3,7 +3,7 @@
 Create a requirements.yml in your ansible project
 
 ```yaml
-- src: tyhal.ansible_role_cuda
+- src: tyhal.cuda
 ```
 
 Then you can install this with:
@@ -16,5 +16,5 @@ Then you can use this with:
 ```yaml
 - hosts: all
   roles:
-    - { role: cuda, sudo: yes}
+    - { role: tyhal.cuda, sudo: yes}
 ```
