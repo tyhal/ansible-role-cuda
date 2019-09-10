@@ -5,7 +5,7 @@ galaxy_info:
   author: Tyler W Hale
   description: Cuda driver installation
   company: ""
-  license: ""
+  license: "MIT"
   min_ansible_version: 2.4
   platforms:
     - name: EL
