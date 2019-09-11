@@ -13,6 +13,6 @@
 - name: install cuda drivers
   apt:
     name: cuda-runtime-{{cuda_version}}
-    update_cache: yes
-    allow_unauthenticated: yes
+    update_cache: true
+    allow_unauthenticated: true
     state: present

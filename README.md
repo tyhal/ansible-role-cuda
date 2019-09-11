@@ -13,6 +13,7 @@ ansible-galaxy -r requirements.yml install
 ```
 
 Then you can use this with:
+
 ```yaml
 - hosts: all
   roles:
