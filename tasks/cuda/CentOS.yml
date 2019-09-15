@@ -17,7 +17,6 @@
 
 - name: install cuda-drivers
   yum:
-    name: cuda-{{cuda_version}}
+    name: cuda-{{ cuda_version }}
     state: present
 
-- shell: yum update -y
