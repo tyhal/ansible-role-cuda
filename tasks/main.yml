@@ -6,6 +6,16 @@
 - include_tasks: "cuda/{{ ansible_facts['distribution'] }}.yml"
   when: gpu_working is failed
 
+- name: install cuda-drivers (needed for runtime)
+  package:
+    name: cuda-drivers
+    state: present
+
+# - name: install cuda-development (needed for developing)
+# package:
+# name: cuda-minimal-build
+# state: present
+
 - name: blacklist the nouveau driver module
   kernel_blacklist:
     name: nouveau

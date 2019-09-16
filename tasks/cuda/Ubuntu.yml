@@ -9,10 +9,3 @@
     state: present
     filename: cuda
   register: nvidia_repo_cuda_apt_repo
-
-- name: install cuda drivers
-  apt:
-    name: cuda-runtime-{{ cuda_version }}
-    update_cache: true
-    allow_unauthenticated: true
-    state: present

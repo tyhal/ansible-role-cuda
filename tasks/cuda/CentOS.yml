@@ -13,10 +13,4 @@
       - epel-release
       - dkms
       - kernel-devel
-    update_cache: yes
-
-- name: install cuda-drivers
-  yum:
-    name: cuda-{{ cuda_version }}
-    state: present
-
+    update_cache: true
