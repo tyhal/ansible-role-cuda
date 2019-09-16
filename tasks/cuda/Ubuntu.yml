@@ -1,10 +1,12 @@
 ---
-- apt_key:
+- name: Get public key for repo verification
+  apt_key:
     url: "https://developer.download.nvidia.com/compute/cuda/repos/{{ nvidia_repo_distarch }}/7fa2af80.pub"
     id: 7fa2af80
     state: present
 
-- apt_repository:
+- name: Add nvidia cuda repository
+  apt_repository:
     repo: 'deb http://developer.download.nvidia.com/compute/cuda/repos/{{ nvidia_repo_distarch }} /'
     state: present
     filename: cuda

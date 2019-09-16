@@ -1,4 +1,5 @@
-- copy:
+- name: Enable cuda repository
+  copy:
     dest: /etc/yum.repos.d/cuda.repo
     content: |
       [cuda]
@@ -8,7 +9,8 @@
       gpgcheck=1
       gpgkey=https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/7fa2af80.pub
 
-- yum:
+- name: Install kernel pre-reqs
+  yum:
     name:
       - epel-release
       - dkms

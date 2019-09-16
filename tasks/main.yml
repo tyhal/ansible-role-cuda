@@ -1,6 +1,7 @@
-- name: check if nvidia drivers are working
+# Only does checks of system
+- name: check if nvidia drivers are working  # noqa 301
   register: gpu_working
-  shell: nvidia-smi && ls /usr/local | grep $(echo {{ cuda_version }} | tr '-' '.')
+  command: nvidia-smi
   ignore_errors: true
 
 - include_tasks: "cuda/{{ ansible_facts['distribution'] }}.yml"
@@ -11,17 +12,13 @@
     name: cuda-drivers
     state: present
 
-# - name: install cuda-development (needed for developing)
-# package:
-# name: cuda-minimal-build
-# state: present
-
 - name: blacklist the nouveau driver module
   kernel_blacklist:
     name: nouveau
     state: present
 
-- reboot:
+- name: reboot to reload drivers
+  reboot:
   when: gpu_working is failed
 
 - name: check if nvidia drivers are working
