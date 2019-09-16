@@ -2,9 +2,9 @@
 dependencies: []
 
 galaxy_info:
-  author: Tyler W Hale
-  description: Cuda driver installation
-  company: ""
+  author: tyhal
+  role_name: cuda
+  description: NVIDIA Cuda-Drivers
   license: "MIT"
   min_ansible_version: 2.4
   platforms:
@@ -18,3 +18,5 @@ galaxy_info:
   galaxy_tags:
     - cuda
     - nvidia
+    - runtime
+    - gpu
