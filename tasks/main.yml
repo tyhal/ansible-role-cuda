@@ -1,3 +1,12 @@
+- name: check that we are not in a docker
+  stat:
+    path: /.dockerenv
+  register: docker
+
+- name: if in a docker container then exit
+  meta: end_play
+  when: docker.stat.exists
+
 # Only does checks of system
 - name: check if nvidia drivers are working  # noqa 301
   register: gpu_working
@@ -19,7 +28,7 @@
 
 - name: reboot to reload drivers
   reboot:
-  when: gpu_working is failed
+  when: gpu_working is failed and inventory_hostname != "localhost"
 
 - name: check if nvidia drivers are working
   command: nvidia-smi

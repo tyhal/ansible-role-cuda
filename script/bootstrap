@@ -4,4 +4,5 @@ set -e
 apt-get install python3 python3-wheel python3-setuptools python3-pip
 
 # TODO: requirements.txt
-pip install molecule 'molecule[docker]' ansible
+pip install molecule 'moelcule[docker]' ansible # python-vagrant 'molecule[vagrant]'
+
