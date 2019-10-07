@@ -12,6 +12,6 @@
     filename: cuda
   register: nvidia_repo_cuda_apt_repo
 
-name: Update cache with new cuda repo
+- name: Update cache with new cuda repo
   apt:
     update_cache: yes
