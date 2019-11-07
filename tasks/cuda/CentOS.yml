@@ -9,6 +9,12 @@
       gpgcheck=1
       gpgkey=https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/7fa2af80.pub
 
+- name: Install epel-release
+  yum:
+    name:
+      - epel-release
+    state: installed
+
 # Must have latest CentOS Kernel to use kernel-devel
 - name: Install latest kernel # noqa 403
   yum:
@@ -20,7 +26,6 @@
 - name: Install kernel pre-reqs
   yum:
     name:
-      - epel-release
       - dkms
       - kernel-devel
     state: installed
