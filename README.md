@@ -2,13 +2,13 @@
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftyhal%2Fcuda.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftyhal%2Fcuda?ref=badge_shield)
 
-An Ansible role to install the minimum needed to *run* a cuda application.
+An Ansible role to install the minimum needed to _run_ a cuda application.
 
 You will be able to install additional NVIDIA packages after this playbook E.G ( cublas, cufft, cusparse )
 
 ## Install
 
-``` bash
+```bash
 	ansible-galaxy install tyhal.cuda
 ```
 

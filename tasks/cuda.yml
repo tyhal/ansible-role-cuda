@@ -4,7 +4,7 @@
   command: nvidia-smi
   ignore_errors: true
 
-- include_tasks: "cuda/{{ ansible_facts['distribution'] }}.yml"
+- include_tasks: "cuda/{{ ansible_os_family }}.yml"
   when: gpu_working is failed
 
 - name: install cuda-drivers (needed for runtime)
