@@ -1,7 +1,16 @@
+- name: Ensure utilities are installed
+  package:
+    name:
+      - pciutils
+
+- shell: lscpi | grep
+  register: havegpu
+  ignore_errors: true
+
 - name: check that we are not in a docker
   stat:
     path: /.dockerenv
   register: docker
 
 - include_tasks: "cuda.yml"
-  when: not docker.stat.exists
+  when: not docker.stat.exists and havegpu is success
