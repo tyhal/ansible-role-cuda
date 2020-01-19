@@ -1,0 +1,4 @@
+- name: system_restart
+  reboot:
+    post_reboot_delay: 30
+  when: inventory_hostname != "localhost"

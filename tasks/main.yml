@@ -1,17 +1,28 @@
-- name: ensure utilities are installed
+- include_tasks: "enable_repo/{{ ansible_os_family }}.yml"
+
+# If we are unable to query the gpu then dive deeped
+- name: check_driver # noqa 301
+  register: gpu_working
+  command: nvidia-smi
+  ignore_errors: true
+
+# Check the system even has a gpu first
+- name: install_pciutils
   package:
     name:
       - pciutils
+  when: gpu_working is failed
 
-- name: check if gpu exists # noqa 301
-  shell: "lspci | grep NVIDIA"
-  register: havegpu
-  ignore_errors: true
+- name: check_gpu
+  command: "lspci"
+  register: pcidevices
+  changed_when: "'NVIDIA' in pcidevices.stdout"
+  when: gpu_working is failed
 
 - name: check that we are not in a docker
   stat:
     path: /.dockerenv
   register: docker
 
-- include_tasks: "cuda.yml"
-  when: not docker.stat.exists and havegpu is success
+- include_tasks: "host.yml"
+  when: gpu_working is failed and pcidevices.changed and not docker.stat.exists

@@ -1,0 +1,27 @@
+- name: install epel-release
+  yum:
+    name:
+      - epel-release
+    state: installed
+
+# Must have latest CentOS Kernel to use kernel-devel
+- name: install latest kernel # noqa 403
+  yum:
+    name:
+      - kernel
+    update_cache: yes
+    state: latest
+
+- name: install kernel pre-reqs
+  yum:
+    name:
+      - dkms
+      - kernel-devel
+    state: installed
+
+- name: install cuda-drivers (needed for runtime)
+  package:
+    name: nvidia-driver-latest-dkms
+    state: present
+  notify:
+    - system_restart
