@@ -1,9 +1,10 @@
-- name: Ensure utilities are installed
+- name: ensure utilities are installed
   package:
     name:
       - pciutils
 
-- shell: lspci | grep
+- name: check if gpu exists # noqa 301
+  shell: "lspci | grep NVIDIA"
   register: havegpu
   ignore_errors: true
 
