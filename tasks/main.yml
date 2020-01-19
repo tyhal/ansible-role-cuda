@@ -3,7 +3,7 @@
     name:
       - pciutils
 
-- shell: lscpi | grep
+- shell: lspci | grep
   register: havegpu
   ignore_errors: true
 
