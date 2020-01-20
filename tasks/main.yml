@@ -1,28 +1,33 @@
-- include_tasks: "enable_repo/{{ ansible_os_family }}.yml"
-
-# If we are unable to query the gpu then dive deeped
-- name: check_driver # noqa 301
-  register: gpu_working
-  command: nvidia-smi
-  ignore_errors: true
-
 # Check the system even has a gpu first
 - name: install_pciutils
   package:
     name:
       - pciutils
-  when: gpu_working is failed
 
-- name: check_gpu
+- name: check_gpu # noqa 301
   command: "lspci"
   register: pcidevices
-  changed_when: "'NVIDIA' in pcidevices.stdout"
-  when: gpu_working is failed
+  tags:
+    - molecule-idempotence-notest
 
-- name: check that we are not in a docker
-  stat:
-    path: /.dockerenv
-  register: docker
+- block:
+    # If we are able to query the gpu then dive deeped
+    - name: check_driver # noqa 301
+      register: gpu_working
+      command: nvidia-smi
+      ignore_errors: true
 
-- include_tasks: "host.yml"
-  when: gpu_working is failed and pcidevices.changed and not docker.stat.exists
+    - name: check that we are not in a docker
+      stat:
+        path: /.dockerenv
+      register: docker
+
+    - include_tasks: "enable_repo/{{ ansible_os_family }}.yml"
+      when: gpu_working is failed
+
+    - include_tasks: "host.yml"
+      when: gpu_working is failed and not docker.stat.exists
+
+  when: "'NVIDIA' in pcidevices.stdout"
+  tags:
+    - molecule-idempotence-notest
