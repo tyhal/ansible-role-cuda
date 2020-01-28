@@ -1,3 +1,5 @@
+- include_tasks: "enable_repo/{{ ansible_os_family }}.yml"
+
 # Check the system even has a gpu first
 - name: install_pciutils
   package:
@@ -21,9 +23,6 @@
       stat:
         path: /.dockerenv
       register: docker
-
-    - include_tasks: "enable_repo/{{ ansible_os_family }}.yml"
-      when: gpu_working is failed
 
     - include_tasks: "host.yml"
       when: gpu_working is failed and not docker.stat.exists
