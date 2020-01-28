@@ -9,8 +9,12 @@
   package:
     name: cuda-drivers
     state: present
-  notify:
-    - system_restart
 
-- name: check if nvidia drivers are working  # noqa 301
-  command: nvidia-smi
+- name: verify drivers are working
+  block:
+    - name: reboot the system
+      reboot:
+        post_reboot_delay: 30
+    - name: check if nvidia drivers are working  # noqa 301
+      command: nvidia-smi
+  when: inventory_hostname != "localhost"
