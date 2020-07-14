@@ -19,9 +19,8 @@
       - kernel-devel
     state: installed
 
-- name: install cuda-drivers (needed for runtime)
+- name: install cuda-drivers-dkms
   package:
     name: nvidia-driver-latest-dkms
     state: present
-  notify:
-    - system_restart
+
